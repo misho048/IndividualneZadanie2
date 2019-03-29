@@ -46,17 +46,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RaceProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RaceProperties.Designer.cs">
+      <DependentUpon>RaceProperties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RacerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RacerForm.Designer.cs">
+      <DependentUpon>RacerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewRacerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewRacerForm.Designer.cs">
+      <DependentUpon>NewRacerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Subro.Controls.cs">
       <SubType>Component</SubType>
     </Compile>
+    <EmbeddedResource Include="MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RaceProperties.resx">
+      <DependentUpon>RaceProperties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RacerForm.resx">
+      <DependentUpon>RacerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewRacerForm.resx">
+      <DependentUpon>NewRacerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
