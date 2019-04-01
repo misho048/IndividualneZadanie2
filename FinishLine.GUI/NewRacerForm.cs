@@ -1,52 +1,65 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using FinishLine.Core;
 
 namespace FinishLine
 {
+    /// <summary>
+    /// win form for filling data of new runners/racers
+    /// also working like edit form
+    /// </summary>
     public partial class NewRacerForm : Form
     {
-        RacerFactory RacerFac;
-        CountryFactory CountryFac;  
+        #region fields and constructors
+        private RacerFactory _raceFac;
+        private CountryFactory _countryFac;  
 
-
+        /// <summary>
+        /// this constructor is called whe user want to add
+        /// new racer/runner
+        /// </summary>
+        /// <param name="racerFactory"></param>
+        /// <param name="countryFactory"></param>
         public NewRacerForm(RacerFactory racerFactory, CountryFactory countryFactory)
         {
 
             ControlBox = true;
-            RacerFac = racerFactory;
-            CountryFac = countryFactory;
+            _raceFac = racerFactory;
+            _countryFac = countryFactory;
             InitializeComponent();           
             btnDoStuff.Text = "Add Racer";
             FillCountryBox();
 
         }
-
+        /// <summary>
+        /// this constructor is called whe user want to edit racer/runner
+        /// </summary>
+        /// <param name="racerFactory"></param>
+        /// <param name="countryFactory"></param>
+        /// <param name="ID"></param>
         public NewRacerForm(RacerFactory racerFactory, CountryFactory countryFactory, int ID)
         {
             ControlBox = false;
-            RacerFac = racerFactory;
-            CountryFac = countryFactory;
+            _raceFac = racerFactory;
+            _countryFac = countryFactory;
             InitializeComponent();           
             btnDoStuff.Text = "Edit Racer";
             FillCountryBox();
             EditRacer(ID);
         }
+        #endregion
 
+        /// <summary>
+        /// When editing preselect value of controls with 
+        /// last used values
+        /// </summary>
+        /// <param name="id"></param>
         private void EditRacer(int id)
         {
-            txtBoxName.Text = RacerFac.RacerMap[id].Name;
-            txtBoxAge.Text = RacerFac.RacerMap[id].Age.ToString();
+            txtBoxName.Text = _raceFac.RacerMap[id].Name;
+            txtBoxAge.Text = _raceFac.RacerMap[id].Age.ToString();
             txtBoxID.SelectedText = Convert.ToString(id);
-            if (RacerFac.RacerMap[id].Sex.Equals("Male"))
+            if (_raceFac.RacerMap[id].Sex.Equals("Male"))
             {
                 radioBtnMale.Checked = true;
             }
@@ -54,7 +67,7 @@ namespace FinishLine
             {
                 radioBtnFemale.Checked = true;
             }           
-            RacerFac.RacerMap.Remove(id);
+            _raceFac.RacerMap.Remove(id);
 
 
         }
@@ -64,18 +77,21 @@ namespace FinishLine
 
         }
 
+        /// <summary>
+        /// fill comboBox with countries loaded froma  file
+        /// </summary>
         private void FillCountryBox()
         {
 
             radioBtnMale.Checked = true;
            
 
-            foreach (var key in CountryFac.MapOfCountries)
+            foreach (var key in _countryFac.MapOfCountries)
             {
 
 
-                cmbBoxCountry.Items.Add($"{key.Key.ToString()} :{CountryFac.MapOfCountries[key.Key].SlovakName} " +
-                    $":{CountryFac.MapOfCountries[key.Key].OfficialShortName} :{CountryFac.MapOfCountries[key.Key].EnglishShortName}");
+                cmbBoxCountry.Items.Add($"{key.Key.ToString()} :{_countryFac.MapOfCountries[key.Key].SlovakName} " +
+                    $":{_countryFac.MapOfCountries[key.Key].OfficialShortName} :{_countryFac.MapOfCountries[key.Key].EnglishShortName}");
 
             }
             cmbBoxCountry.SelectedIndex = 0;
@@ -87,6 +103,11 @@ namespace FinishLine
 
         }
 
+        /// <summary>
+        /// Check Name input (just Length)
+        /// </summary>
+        /// <returns></returns>
+        //TODO: remove numbers and special characters from name
         private bool CheckName()
         {
             if (txtBoxName.Text.Length == 0)
@@ -100,11 +121,15 @@ namespace FinishLine
             }
         }
 
+        /// <summary>
+        /// Checks if ID is in good format,range and not used.
+        /// </summary>
+        /// <returns></returns>
         private bool CheckID()
         {
             if (int.TryParse(txtBoxID.Text, out int result))
             {
-                if (RacerFac.RacerMap.ContainsKey(result))
+                if (_raceFac.RacerMap.ContainsKey(result))
                 {
                     MessageBox.Show("Starting Number Already in use try another number");
                     return false;
@@ -128,6 +153,10 @@ namespace FinishLine
             }
         }
 
+        /// <summary>
+        /// checks for age, format and range
+        /// </summary>
+        /// <returns></returns>
         private bool CheckAge()
         {
             if (int.TryParse(txtBoxAge.Text, out int result))
@@ -154,6 +183,12 @@ namespace FinishLine
 
         }
 
+        /// <summary>
+        /// create new racer and put it in the dictionary
+        /// ID is creating according to choice via checkBox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddRacer_Click(object sender, EventArgs e)
         {
             string isMale = (radioBtnMale.Checked) ? "Male" : "Female";
@@ -162,7 +197,7 @@ namespace FinishLine
             {
                 if (CheckAge() && CheckName())
                 {
-                    RacerFac.CreateRacer(txtBoxName.Text, CountryFac.MapOfCountries
+                    _raceFac.CreateRacer(txtBoxName.Text, _countryFac.MapOfCountries
                         [$"{cmbBoxCountry.GetItemText(cmbBoxCountry.SelectedItem)[0]}" +
                         $"{cmbBoxCountry.GetItemText(cmbBoxCountry.SelectedItem)[1]}"],
                     Convert.ToInt32(txtBoxAge.Text), isMale);
@@ -174,8 +209,8 @@ namespace FinishLine
 
                 if (CheckID() && CheckAge() && CheckName())
                 {
-                    RacerFac.CreateRacerWithID(Convert.ToInt32(txtBoxID.Text), txtBoxName.Text,
-                        CountryFac.MapOfCountries[$"{cmbBoxCountry.GetItemText(cmbBoxCountry.SelectedItem)[0]}" +
+                    _raceFac.CreateRacerWithID(Convert.ToInt32(txtBoxID.Text), txtBoxName.Text,
+                        _countryFac.MapOfCountries[$"{cmbBoxCountry.GetItemText(cmbBoxCountry.SelectedItem)[0]}" +
                         $"{cmbBoxCountry.GetItemText(cmbBoxCountry.SelectedItem)[1]}"],
                     Convert.ToInt32(txtBoxAge.Text), isMale);
 
@@ -186,6 +221,12 @@ namespace FinishLine
 
         }
 
+        /// <summary>
+        /// check if checkBox is checked and if yes allow user
+        /// to enter his speciffic ID
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBoxID_CheckedChanged(object sender, EventArgs e)
         {
 

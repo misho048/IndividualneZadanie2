@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace FinishLine.Core
-{
+{/// <summary>
+/// class is used just for manipulaitng and saving countries
+/// </summary>
      public class Country
     {
+        #region properties and constructor
         public string SlovakName { get; }
         public string EnglishShortName { get; }
         public string OfficialShortName { get; }
@@ -20,5 +19,6 @@ namespace FinishLine.Core
             OfficialShortName = officialShortName;
             DependencyOf = dependencyOf;
         }
+        #endregion  
     }
 }

@@ -1,62 +1,70 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using FinishLine.Core;
 
 namespace FinishLine
 {
+    /// <summary>
+    /// Form for working with Data of Racers
+    /// </summary>
     public partial class RacerForm : Form
     {
+        #region fields and constructor
+        private RacerFactory _raceFac;
+        private CountryFactory _countryFac ;
 
-        private RacerFactory RacerFac;
-        private CountryFactory CountryFac ;
-
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="racerFactory"></param>
+        /// <param name="countryFactory"></param>
         public RacerForm(RacerFactory racerFactory,CountryFactory countryFactory)
         {
-            RacerFac = racerFactory;
-            CountryFac = countryFactory;
-
-            RacerFac.CreateRacer("Misko", CountryFac.MapOfCountries["SK"], 26, "Male");
-            RacerFac.CreateRacerWithID(25, "Misko", CountryFac.MapOfCountries["SK"], 26, "Male");
-            RacerFac.CreateRacer("Misko", CountryFac.MapOfCountries["SK"], 26, "Male");
-            RacerFac.CreateRacer("Misko", CountryFac.MapOfCountries["SK"], 26, "Male");
-            InitializeComponent();
+            _raceFac = racerFactory;
+            _countryFac = countryFactory;           
+            InitializeComponent();            
             fillGrid();
         }
-        
+        #endregion
 
-
+        /// <summary>
+        /// button for add Racer, go into next Form where user
+        /// can create a new racer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddRacer_Click(object sender, EventArgs e)
         {       
-            NewRacerForm nrf = new NewRacerForm(RacerFac,CountryFac);
+            NewRacerForm nrf = new NewRacerForm(_raceFac,_countryFac);
             nrf.ShowDialog();
             fillGrid();
         }
 
-
+        /// <summary>
+        /// method for filling the dataGridView with existing racers
+        /// </summary>
         private void fillGrid()
         {
 
             dataGridView1.Rows.Clear();
-            if (RacerFac.RacerMap != null)
+            if (_raceFac.RacerMap != null)
             {
-                foreach (var racer in RacerFac.RacerMap)
+                foreach (var racer in _raceFac.RacerMap)
                 {
 
-                    dataGridView1.Rows.Add(RacerFac.RacerMap[racer.Key].ID, RacerFac.RacerMap[racer.Key].Name,
-                        RacerFac.RacerMap[racer.Key].Country.EnglishShortName, RacerFac.RacerMap[racer.Key].Age,
-                        RacerFac.RacerMap[racer.Key].Sex);
+                    dataGridView1.Rows.Add(_raceFac.RacerMap[racer.Key].ID, _raceFac.RacerMap[racer.Key].Name,
+                        _raceFac.RacerMap[racer.Key].Country.EnglishShortName, _raceFac.RacerMap[racer.Key].Age,
+                        _raceFac.RacerMap[racer.Key].Sex);
                 }
             }
         }
 
+        /// <summary>
+        /// remove selected racer from a DataGridVIew and 
+        /// collection holdings
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
 
         private void btnDeleteRacer_Click(object sender, EventArgs e)
         {
@@ -64,7 +72,7 @@ namespace FinishLine
             {             
                             
            
-                RacerFac.RacerMap.Remove(Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value));
+                _raceFac.RacerMap.Remove(Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value));
                 fillGrid();
 
             }
@@ -75,16 +83,29 @@ namespace FinishLine
 
         }
 
+        /// <summary>
+        /// calls window for a adding new player with slightly edited mode
+        /// for Editing players (old is deleted and new is created as a replace)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            NewRacerForm newRacerForm = new NewRacerForm(RacerFac, CountryFac, Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value));
+            NewRacerForm newRacerForm = new NewRacerForm(_raceFac, _countryFac, Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value));
             newRacerForm.ShowDialog();
             fillGrid();
         }
 
+        /// <summary>
+        /// button for going back to mainwindow and confirming changes
+        /// there needs to be atleast 2 runners/racers for the race
+        /// to be able continue
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-            if (RacerFac.RacerMap.Count > 1)
+            if (_raceFac.RacerMap.Count > 1)
             {
                 DialogResult = DialogResult.OK;
             }

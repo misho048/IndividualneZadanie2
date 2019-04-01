@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataLayer.cs" />
     <Compile Include="Logic.cs" />
     <Compile Include="RacerFactory.cs" />
     <Compile Include="Race.cs" />
