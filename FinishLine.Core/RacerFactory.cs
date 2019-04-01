@@ -18,6 +18,11 @@ namespace FinishLine.Core
             RacerMap = new Dictionary<int, Racer>();
         }
 
+        public void AddLap(int id,TimeSpan time)
+        {
+            RacerMap[id].AddLap(time);
+        }
+
 
         public void CreateRacer(string name, Country country, int age, string sex)
         {

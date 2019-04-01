@@ -15,8 +15,7 @@ namespace FinishLine
     public partial class NewRacerForm : Form
     {
         RacerFactory RacerFac;
-        CountryFactory CountryFac;
-        Dictionary<string, Country> _countryMap;
+        CountryFactory CountryFac;  
 
 
         public NewRacerForm(RacerFactory racerFactory, CountryFactory countryFactory)
@@ -25,10 +24,8 @@ namespace FinishLine
             ControlBox = true;
             RacerFac = racerFactory;
             CountryFac = countryFactory;
-            InitializeComponent();
-            _countryMap = new Dictionary<string, Country>(CountryFac.MapOfCountries);
+            InitializeComponent();           
             btnDoStuff.Text = "Add Racer";
-
             FillCountryBox();
 
         }
@@ -38,11 +35,9 @@ namespace FinishLine
             ControlBox = false;
             RacerFac = racerFactory;
             CountryFac = countryFactory;
-            InitializeComponent();
-            _countryMap = new Dictionary<string, Country>(CountryFac.MapOfCountries);
+            InitializeComponent();           
             btnDoStuff.Text = "Edit Racer";
             FillCountryBox();
-
             EditRacer(ID);
         }
 
@@ -58,7 +53,7 @@ namespace FinishLine
             else
             {
                 radioBtnFemale.Checked = true;
-            }
+            }           
             RacerFac.RacerMap.Remove(id);
 
 
@@ -73,14 +68,14 @@ namespace FinishLine
         {
 
             radioBtnMale.Checked = true;
-            Dictionary<string, Country> countryMap = new Dictionary<string, Country>(CountryFac.MapOfCountries);
+           
 
-            foreach (var key in countryMap)
+            foreach (var key in CountryFac.MapOfCountries)
             {
 
 
-                cmbBoxCountry.Items.Add($"{key.Key.ToString()} :{countryMap[key.Key].SlovakName} " +
-                    $":{countryMap[key.Key].OfficialShortName} :{countryMap[key.Key].EnglishShortName}");
+                cmbBoxCountry.Items.Add($"{key.Key.ToString()} :{CountryFac.MapOfCountries[key.Key].SlovakName} " +
+                    $":{CountryFac.MapOfCountries[key.Key].OfficialShortName} :{CountryFac.MapOfCountries[key.Key].EnglishShortName}");
 
             }
             cmbBoxCountry.SelectedIndex = 0;
@@ -116,6 +111,11 @@ namespace FinishLine
                 }
                 else
                 {
+                    if (result > 999)
+                    {
+                        MessageBox.Show("Max Starting number is 999");
+                        return false;
+                    }
                     return true;
                 }
 

@@ -37,6 +37,7 @@
             this.btnAddRacer = new System.Windows.Forms.Button();
             this.btnDeleteRacer = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
+            this.btnConfirm = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,11 +120,23 @@
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
+            // btnConfirm
+            // 
+            this.btnConfirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnConfirm.Location = new System.Drawing.Point(576, 364);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(173, 30);
+            this.btnConfirm.TabIndex = 4;
+            this.btnConfirm.Text = "OK";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
             // RacerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(761, 450);
+            this.ClientSize = new System.Drawing.Size(761, 407);
+            this.Controls.Add(this.btnConfirm);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnDeleteRacer);
             this.Controls.Add(this.btnAddRacer);
@@ -146,5 +159,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Age;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sex;
         private System.Windows.Forms.Button btnEdit;
+        private System.Windows.Forms.Button btnConfirm;
     }
 }

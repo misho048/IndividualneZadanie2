@@ -15,11 +15,13 @@ namespace FinishLine
     public partial class RacerForm : Form
     {
 
-        RacerFactory RacerFac = new RacerFactory();
-        CountryFactory CountryFac = new CountryFactory();
+        private RacerFactory RacerFac;
+        private CountryFactory CountryFac ;
 
-        public RacerForm()
+        public RacerForm(RacerFactory racerFactory,CountryFactory countryFactory)
         {
+            RacerFac = racerFactory;
+            CountryFac = countryFactory;
 
             RacerFac.CreateRacer("Misko", CountryFac.MapOfCountries["SK"], 26, "Male");
             RacerFac.CreateRacerWithID(25, "Misko", CountryFac.MapOfCountries["SK"], 26, "Male");
@@ -32,10 +34,7 @@ namespace FinishLine
 
 
         private void btnAddRacer_Click(object sender, EventArgs e)
-        {
-            
-           
-
+        {       
             NewRacerForm nrf = new NewRacerForm(RacerFac,CountryFac);
             nrf.ShowDialog();
             fillGrid();
@@ -81,6 +80,18 @@ namespace FinishLine
             NewRacerForm newRacerForm = new NewRacerForm(RacerFac, CountryFac, Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value));
             newRacerForm.ShowDialog();
             fillGrid();
+        }
+
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+            if (RacerFac.RacerMap.Count > 1)
+            {
+                DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                MessageBox.Show("Add Some More Runners");
+            }
         }
     }
 }

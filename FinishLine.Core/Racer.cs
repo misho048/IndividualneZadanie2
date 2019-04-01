@@ -13,6 +13,8 @@ namespace FinishLine.Core
         public Country Country { get; }
         public int Age { get; }
         public string Sex { get; }
+        public List<TimeSpan> LapTimeList = new List<TimeSpan>();
+        
 
         public Racer(int Id,string name, Country country, int age, string sex)
         {
@@ -21,7 +23,17 @@ namespace FinishLine.Core
             Country = country;
             Age = age;
             Sex = sex;
+            LapTimeList.Add(TimeSpan.Zero);
+           
         }
+
+        public void AddLap(TimeSpan laptime)
+        {
+            LapTimeList.Add(laptime);
+        }
+
+
+
 
     }
 }

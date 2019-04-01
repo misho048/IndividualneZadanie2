@@ -13,13 +13,13 @@ namespace FinishLine
     public partial class RaceProperties : Form
     {
         public int NumOfLaps;
-        public decimal LapLength;
+        public double LapLength;
         public int NumOfWinners;
 
         public RaceProperties()
         {
             InitializeComponent();
-            numlapLength.Maximum = decimal.MaxValue;
+            numlapLength.Maximum = int.MaxValue;
             numOfLaps.Maximum = int.MaxValue;
             numWinners.Maximum = int.MaxValue;
 
@@ -39,7 +39,7 @@ namespace FinishLine
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             NumOfLaps = Convert.ToInt32(numOfLaps.Value);
-            LapLength = numlapLength.Value;
+            LapLength = Convert.ToDouble(numlapLength.Value);
             NumOfWinners = Convert.ToInt32(numWinners.Value);
             DialogResult = DialogResult.OK;
 

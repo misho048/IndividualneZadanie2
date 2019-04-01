@@ -77,6 +77,7 @@
             this.cmbBoxCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cmbBoxCountry.ForeColor = System.Drawing.SystemColors.WindowText;
             this.cmbBoxCountry.FormattingEnabled = true;
+            this.cmbBoxCountry.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.cmbBoxCountry.Location = new System.Drawing.Point(100, 74);
             this.cmbBoxCountry.MaxDropDownItems = 20;
             this.cmbBoxCountry.Name = "cmbBoxCountry";
