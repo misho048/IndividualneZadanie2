@@ -43,7 +43,7 @@ namespace FinishLine.Core
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Unexpected Error Happend\n" +
+                Debug.WriteLine($"Unexpected Error Happend\n" +
                     $"Error Info:{e.Message}");
             }
         }

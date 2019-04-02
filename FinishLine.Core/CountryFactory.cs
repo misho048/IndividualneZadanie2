@@ -27,7 +27,8 @@ namespace FinishLine.Core
            
             try
             {
-                using (var streamReader = new StreamReader(@"D:\C#\RaceApp\Data\countries.csv")) 
+                string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, @"Data\countries.csv");
+                using (var streamReader = new StreamReader(path)) 
                 using (var reader = new CsvReader(streamReader))
                 {
                     

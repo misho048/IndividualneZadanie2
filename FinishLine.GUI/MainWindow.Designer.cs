@@ -157,6 +157,8 @@
             // 
             // dataGridViewRace
             // 
+            this.dataGridViewRace.AllowUserToAddRows = false;
+            this.dataGridViewRace.AllowUserToDeleteRows = false;
             this.dataGridViewRace.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewRace.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRace.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
